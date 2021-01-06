@@ -10,9 +10,9 @@ exports.getSocialPage = (req, res, next) => {
             Hobbies.fetchAll(hobbies => {
                 Fashion.fetchAll(fashion => {
                     Contact.fetchAll(contacts => {
-                        res.render('public/career', {
-                            pageTitle: 'Career',
-                            path: '/career',
+                        res.render('social/social', {
+                            pageTitle: 'Social',
+                            path: '/social',
                             imgs: contents,
                             books: books,
                             hobbieNames: hobbies.hobbieNames.split(" "),

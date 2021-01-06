@@ -6,8 +6,8 @@ const router = express.Router();
 
 const socialController = require('../controllers/social');
 
-router.post('/', socialController.getSocialPage);
+router.post('/social', socialController.getSocialPage);
 
-router.get('/', socialController.getSocialPage);
+router.get('/social', socialController.getSocialPage);
 
 module.exports = router;

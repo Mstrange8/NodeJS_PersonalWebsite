@@ -13,8 +13,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const adminRoutes = require('./routes/admin');
 const publicRoutes = require('./routes/public');
+const socialRoutes = require('./routes/social');
 
 app.use(adminRoutes);
 app.use(publicRoutes);
+app.use(socialRoutes);
 
 app.listen(3000);
