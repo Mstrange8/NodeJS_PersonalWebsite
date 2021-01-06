@@ -25,7 +25,7 @@ exports.postEditAbout = (req, res, next) => {
         content2
     );
     updatedContents.save();
-    res.redirect('/');
+    res.redirect('/social');
 };
 
 

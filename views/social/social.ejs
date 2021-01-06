@@ -39,19 +39,19 @@
         </div>
     </section> 
 
-    <section class="experiences-section text-center" id="books">
+    <section class="books-section text-center" id="books">
         <div class="header">
             <h2 class="text-blue">Favorite Reads</h2>
         </div>
-        <div class="edu__container">
+        <div class="book__container">
             <% if (books.length > 0) { %>
                 <% for (let book of books) { %>
-                <div class="edu__float">
-                    <div class="card__school">
+                <div class="book__float">
+                    <div class="card__title">
                         <b><%= book.title %></b>
                         <h5><%= book.author %></h5>
                     </div>
-                    <div class="card__degree">
+                    <div class="card__description">
                         <p><%= book.description %></p>
                     </div>
                 </div>
@@ -60,8 +60,9 @@
                 <h1>No Education Found!</h1>
             <% } %>
         </div>
+    </section>
 
-    <section class="skills-section text-center" id="hobbies">
+    <section class="hobbies-section text-center" id="hobbies">
         <div class="header">
             <h2 class="text-white">Hobbies</h2>
         </div>
@@ -87,7 +88,7 @@
         </div>
     </section>
 
-    <section class="projects-section text-center" id="fashion">
+    <section class="fashion-section text-center" id="fashion">
         <div class="header">
             <h2 class="text-blue">Fashion</h2>
         </div>

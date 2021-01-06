@@ -30,7 +30,7 @@ body {
     margin-bottom: 5rem;
 }
 
-.experiences-section {
+.books-section {
     height: auto;
     width: 100%;
     position: relative;
@@ -40,7 +40,7 @@ body {
     padding-top: 2rem;
 }
 
-.edu__container {
+.book__container {
     width: 70%;
     padding-right: 0.75rem;
     padding-left: 0.75rem;
@@ -49,22 +49,22 @@ body {
     text-align: left;
 }
 
-.edu__float {
+.book__float {
     display: flex;
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
 }
 
-.card__school {
+.card__title {
     width: 35%;
     padding-right: 5rem;
 }
 
-.card__degree {
+.card__description {
     width: 65%;
 }
 
-.skills-section {
+.hobbies-section {
     height: auto;
     width: 100%;
     position: relative;
@@ -138,76 +138,13 @@ body {
 
 }
 
-.projects-section {
+.fashion-section {
     height: auto;
     width: 100%;
     position: relative;
     background: white;
     padding-bottom: 5rem;
     padding-top: 2rem;
-}
-
-.project__card {
-    width: auto;
-    margin: 0 auto;
-    position: relative;
-    height: 20rem;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-}
-
-.project__card .left-img__card {
-    position: relative;
-    display: inline-block;
-    padding-right: 2rem;
-    height: 20rem;
-    width: 25rem;
-    margin: 0 auto;
-}
-
-.left-img__card img {
-    border-radius: 15%;
-    height: 100%;
-    width: 100%;
-}
-
-.project__card .right-txt__card {
-    vertical-align: top;
-    display: inline-block;
-    position: relative;
-    max-width: 15rem;
-    height: 100%;
-    padding-left: 2rem;
-    text-align: left;
-    border-left: 0.5rem solid #64a19d;    
-    margin: 0 auto;
-}
-
-.project__card .left-txt__card {
-    vertical-align: top;
-    display: inline-block;
-    position: relative;
-    max-width: 15rem;
-    height: 100%;
-    padding-right: 2rem;
-    text-align: left;
-    border-right: 0.5rem solid #64a19d;    
-    margin: 0 auto;
-}
-
-.project__card .right-img__card {
-    position: relative;
-    display: inline-block;
-    padding-left: 2rem;
-    height: 20rem;
-    width: 25rem;
-    margin: 0 auto;
-}
-
-.right-img__card img {
-    border-radius: 15%;
-    height: 100%;
-    width: 100%;
 }
 
 .quote-section {
