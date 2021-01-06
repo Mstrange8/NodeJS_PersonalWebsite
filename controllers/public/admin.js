@@ -1,9 +1,9 @@
-const Contents = require('../models/about');
-const Education = require('../models/education');
-const Work = require('../models/work');
-const Skills = require('../models/skills');
-const Projects = require('../models/projects');
-const Contact = require('../models/contact');
+const Contents = require('../../models/about');
+const Education = require('../../models/education');
+const Work = require('../../models/work');
+const Skills = require('../../models/skills');
+const Projects = require('../../models/projects');
+const Contact = require('../../models/contact');
 
 
 // About Controllers
