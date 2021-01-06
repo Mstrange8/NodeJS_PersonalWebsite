@@ -1,17 +1,17 @@
-const Contents = require('../../models/about');
-const Education = require('../../models/education');
-const Work = require('../../models/work');
-const Skills = require('../../models/skills');
-const Projects = require('../../models/projects');
-const Contact = require('../../models/contact');
+const Contents = require('../../models/about-social');
+const Books = require('../../models/books');
+const Hobbies = require('../../models/hobbies');
+const Fashion = require('../../models/fashion');
+const Contact = require('../../models/contact-social');
+
 
 
 // About Controllers
 exports.getEditAbout = (req, res, next) => {
     Contents.fetchContents(contents => {
-        res.render('admin/about', {
-            pageTitle: 'Edit About',
-            path: '/admin/about',
+        res.render('admin/social/about', {
+            pageTitle: 'Edit About Social',
+            path: '/admin/about-social',
             imgs: contents
         });
     });
@@ -30,253 +30,175 @@ exports.postEditAbout = (req, res, next) => {
 
 
 
-// Education Controllers
-exports.getEducation = (req, res, next) => {
-    Education.fetchAll(education => {
-        res.render('admin/education', {
-            pageTitle: '/Admin Education',
-            path: '/admin/education',
-            eds: education
+// Books Controllers
+exports.getBooks = (req, res, next) => {
+    Books.fetchAll(books => {
+        res.render('admin/social/books', {
+            pageTitle: '/Admin Books',
+            path: '/admin/books',
+            books: books
         });
     });
 };
 
-exports.getAddEducation = (req, res, next) => {
-    res.render('admin/add-education', {
-        pageTitle: 'Add Education',
-        path: '/admin/add-education',
+exports.getAddBook = (req, res, next) => {
+    res.render('admin/social/add-book', {
+        pageTitle: 'Add Books',
+        path: '/admin/add-book',
         editing: false
     });
 };
 
-exports.postAddEducation = (req, res, next) => {
+exports.postAddBook = (req, res, next) => {
     const order = req.body.order;
-    const school = req.body.school;
-    const date = req.body.date;
-    const degree = req.body.degree;
+    const title = req.body.title;
+    const author = req.body.author;
     const description = req.body.description;
-    const education = new Education(null, order, school, date, degree, description);
-    education.save();
-    res.redirect('/admin/education');
+    const books = new Books(null, order, title, author, description);
+    books.save();
+    res.redirect('/admin/books');
 };
 
-exports.getEditEducation = (req, res, next) => {
+
+exports.getEditBook = (req, res, next) => {
     const editMode = req.query.edit;
     if (!editMode) {
         res.redirect('/');
     }
-    const eduId = req.params.educationId;
-    Education.findById(eduId, education => {
-        if (!education) {
+    const bkId = req.params.bookId;
+    Books.findById(bkId, books => {
+        if (!books) {
             return res.redirect('/');
         }
-        res.render('admin/add-education', {
-            pageTitle: 'Edit Education',
-            path: '/admin/edit-education',
+        res.render('admin/social/add-book', {
+            pageTitle: 'Edit Book',
+            path: '/admin/edit-book',
             editing: editMode,
-            ed: education
+            books: books
         });
     });
 };
 
-exports.postEditEducation = (req, res, next) => {
-    const id = req.body.educationId;
+exports.postEditBook = (req, res, next) => {
+    const id = req.body.bookId;
     const order = req.body.order;
-    const school = req.body.school;
-    const date = req.body.date;
-    const degree = req.body.degree;
+    const title = req.body.title;
+    const author = req.body.author;
     const description = req.body.description;
-    const updatedEducation = new Education(
+    const updatedBooks = new Books(
         id,
         order,
-        school,
-        date,
-        degree,
-        description
-    );
-    updatedEducation.save();
-    res.redirect('/admin/education');
-};
-
-exports.postDeleteEducation = (req, res, next) => {
-    const eduId = req.body.educationId;
-    Education.deleteById(eduId);
-    res.redirect('/admin/education');
-};
-
-
-
-// Work Controllers
-exports.getWork = (req, res, next) => {
-    Work.fetchAll(work => {
-        res.render('admin/work', {
-            pageTitle: '/Admin Work',
-            path: '/admin/work',
-            wrks: work
-        });
-    });
-};
-
-exports.getAddWork = (req, res, next) => {
-    res.render('admin/add-work', {
-        pageTitle: 'Add Work',
-        path: '/admin/add-work',
-        editing: false
-    });
-};
-
-exports.postAddWork = (req, res, next) => {
-    const order = req.body.order;
-    const company = req.body.company;
-    const date = req.body.date;
-    const title = req.body.title;
-    const description = req.body.description;
-    const work = new Work(null, order, company, date, title, description);
-    work.save();
-    res.redirect('/admin/work');
-};
-
-exports.getEditWork = (req, res, next) => {
-    const editMode = req.query.edit;
-    if (!editMode) {
-        res.redirect('/');
-    }
-    const workId = req.params.workId;
-    Work.findById(workId, work => {
-        if (!work) {
-            return res.redirect('/');
-        }
-        res.render('admin/add-work', {
-            pageTitle: 'Edit Work',
-            path: '/admin/edit-work',
-            editing: editMode,
-            wrk: work
-        });
-    });
-};
-
-exports.postEditWork = (req, res, next) => {
-    const id = req.body.workId;
-    const order = req.body.order;
-    const company = req.body.company;
-    const date = req.body.date;
-    const title = req.body.title;
-    const description = req.body.description;
-    const updatedWork = new Work(
-        id,
-        order,
-        company,
-        date,
         title,
+        author,
         description
     );
-    updatedWork.save();
-    res.redirect('/admin/work');
+    updatedBooks.save();
+    res.redirect('/admin/books');
 };
 
-exports.postDeleteWork = (req, res, next) => {
-    const workId = req.body.workId;
-    Work.deleteById(workId);
-    res.redirect('/admin/work');
+exports.postDeleteBook = (req, res, next) => {
+    const bkId = req.body.bookId;
+    Books.deleteById(bkId);
+    res.redirect('/admin/books');
 };
 
 
 
-// Skills Controllers 
-exports.getEditSkills = (req, res, next) => {
-    Skills.fetchAll(skills => {
-        res.render('admin/skills', {
-            pageTitle: 'Edit Skills',
-            path: '/admin/skills',
-            skillNames: skills.skillNames,
-            skillPercents: skills.skillPercents
+// Hobbies Controllers 
+exports.getEditHobbies = (req, res, next) => {
+    Hobbies.fetchAll(hobbies => {
+        res.render('admin/social/hobbies', {
+            pageTitle: 'Edit Hobbies',
+            path: '/admin/hobbies',
+            hobbieNames: hobbies.hobbieNames,
+            hobbiePercents: hobbies.hobbiePercents
         });
     });
     
 };
 
-exports.postEditSkills = (req, res, next) => {
-    const skillNames = req.body.skillNames;
-    const skillPercents = req.body.skillPercents;
-    const updatedSkills = new Skills(
-        skillNames,
-        skillPercents
+exports.postEditHobbies = (req, res, next) => {
+    const hobbieNames = req.body.hobbieNames;
+    const hobbiePercents = req.body.hobbiePercents;
+    const updatedHobbies = new Hobbies(
+        hobbieNames,
+        hobbiePercents
     );
-    updatedSkills.save();
+    updatedHobbies.save();
     res.redirect('/');
 };
 
 
 
-// Projects Controllers
-exports.getProjects = (req, res, next) => {
-    Projects.fetchAll(projects => {
-        res.render('admin/projects', {
-            pageTitle: 'Projects',
-            path: '/admin/projects',
-            projects: projects
+// Fashion Controllers
+exports.getFashion = (req, res, next) => {
+    Fashion.fetchAll(fashion => {
+        res.render('admin/social/fashion', {
+            pageTitle: 'Fashion',
+            path: '/admin/fashion',
+            fashion: fashion
         });
     });
 };
 
-exports.getAddProject = (req, res, next) => {
-    res.render('admin/add-project', {
-        pageTitle: 'Add Project',
-        path: '/admin/add-project',
+exports.getAddFashion = (req, res, next) => {
+    res.render('admin/social/add-fashion', {
+        pageTitle: 'Add Fashion',
+        path: '/admin/add-fashion',
         editing: false
     });
 };
 
-exports.postAddProject = (req, res, next) => {
+exports.postAddFashion = (req, res, next) => {
     const order = req.body.order;
     const title = req.body.title;
     const image = req.body.image;
     const description = req.body.description;
-    const project = new Projects(null, order, title, image, description);
-    project.save();
-    res.redirect('/admin/projects');
+    const fashion = new Fashion(null, order, title, image, description);
+    fashion.save();
+    res.redirect('/admin/fashion');
 };
 
-exports.getEditProject = (req, res, next) => {
+exports.getEditFashion = (req, res, next) => {
     const editMode = req.query.edit;
     if (!editMode) {
         res.redirect('/');
     }
-    const projId = req.params.projectId;
-    Projects.findById(projId, project => {
-        if (!project) {
+    const fashId = req.params.fashionId;
+    Fashion.findById(fashId, fashion => {
+        if (!fashion) {
             return res.redirect('/');
         }
-        res.render('admin/add-project', {
-            pageTitle: 'Edit Project',
-            path: '/admin/edit-project',
+        res.render('admin/social/add-fashion', {
+            pageTitle: 'Edit Fashion',
+            path: '/admin/edit-fashion',
             editing: editMode,
-            project: project
+            fashion: fashion
         });
     });
 };
 
-exports.postEditProject = (req, res, next) => {
+exports.postEditFashion = (req, res, next) => {
     const id = req.body.projectId;
     const order = req.body.order;
     const title = req.body.title;
     const image = req.body.image;
     const description = req.body.description;
-    const updatedProject = new Projects(
+    const updatedFashion = new Fashion(
         id,
         order,
         title,
         image,
         description
     );
-    updatedProject.save();
-    res.redirect('/admin/projects');
+    updatedFashion.save();
+    res.redirect('/admin/fashion');
 };
 
-exports.postDeleteProject = (req, res, next) => {
-    const projId = req.body.projectId;
-    Projects.deleteById(projId);
-    res.redirect('/admin/projects');
+exports.postDeleteFashion = (req, res, next) => {
+    const fashId = req.body.fashionId;
+    Fashion.deleteById(fashId);
+    res.redirect('/admin/fashion');
 };
 
 
@@ -284,9 +206,9 @@ exports.postDeleteProject = (req, res, next) => {
 // Contact Controllers
 exports.getEditContact = (req, res, next) => {
     Contact.fetchAll(contact => {
-        res.render('admin/contact', {
+        res.render('admin/social/contact', {
             pageTitle: 'Edit Contacts',
-            path: '/admin/contact',
+            path: '/admin/contact-social',
             contacts: contact
         });
     });

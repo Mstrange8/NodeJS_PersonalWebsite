@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <form class="product-form" action="/admin/hobbies" method="POST">
+        <div class="form-control">
+            <label for="hobbieNames">Hobbies Separated By Spaces</label>
+            <input type="text" name="hobbieNames" id="hobbieNames" value="<%= hobbieNames %>">                
+        </div>
+        <div class="form-control">
+            <label for="hobbiePercents">Skill Percents Separated By Spaces</label>
+            <input type="text" name="hobbiePercents" id="hobbiePercents" value="<%= hobbiePercents %>">                
+        </div>
+        <div class="button-control">
+            <button class="btn" type="submit">Update Hobbies Section</button>
+        </div>
+    </form>
+</body>
+</html>

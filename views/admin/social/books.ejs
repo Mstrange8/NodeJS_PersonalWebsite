@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <% if (books.length > 0) { %>
+        <div class="grid">
+            <% for (let book of books) { %>
+            <article class="card edu-card">
+                <div class="card__order">
+                    <h2><%= book.order %></h2>
+                </div>
+                <div class="card__school">
+                    <b><%= book.title %></b>
+                    <h5><%= book.author %></h5>
+                </div>
+                <div class="card__degree">
+                    <h5><%= book.description %></h5>
+                </div>
+                <div class="card__actions">
+                    <a href="/admin/edit-book/<%= book.id %>?edit=true" class="btn">Edit</a>
+                    <br><br/>
+                    <form action="/admin/delete-book" method="POST">
+                        <input type="hidden" value="<%= book.id %>" name="bookId">
+                        <button class="btn" type="submit">Delete</button>                    
+                    </form>
+                </div>
+            </article>
+            <% } %>
+        </div>
+    <% } else { %>
+        <h1>No Books Found!</h1>
+    <% } %>
+</body>
+</html>

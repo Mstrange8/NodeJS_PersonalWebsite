@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <% if (fashion.length > 0) { %>
+        <div class="grid">
+            <% for (let fash of fashion) { %>
+            <article class="card proj__card">
+                <div class="card__order">
+                    <h2><%= fash.order %></h2>
+                </div>
+                <div class="card__title">
+                    <b><%= fash.title %></b>
+                </div>
+                <div class="card__image">
+                    <h5><%= fash.image %></h5>
+                </div>
+                <div class="card__description">
+                    <h5><%= fash.description %></h5>
+                </div>
+                <div class="card__actions">
+                    <a href="/admin/edit-fashion/<%= fash.id %>?edit=true" class="btn">Edit</a>
+                    <br><br/>
+                    <form action="/admin/delete-fashion" method="POST">
+                        <input type="hidden" value="<%= fash.id %>" name="fashionId">
+                        <button class="btn" type="submit">Delete</button>                    
+                    </form>
+                </div>
+            </article>
+            <% } %>
+        </div>
+    <% } else { %>
+        <h1>No Fashion Found!</h1>
+    <% } %>
+</body>
+</html>

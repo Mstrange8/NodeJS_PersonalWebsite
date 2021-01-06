@@ -9,7 +9,7 @@ const Contact = require('../../models/contact');
 // About Controllers
 exports.getEditAbout = (req, res, next) => {
     Contents.fetchContents(contents => {
-        res.render('admin/about', {
+        res.render('admin/public/about', {
             pageTitle: 'Edit About',
             path: '/admin/about',
             imgs: contents
@@ -33,7 +33,7 @@ exports.postEditAbout = (req, res, next) => {
 // Education Controllers
 exports.getEducation = (req, res, next) => {
     Education.fetchAll(education => {
-        res.render('admin/education', {
+        res.render('admin/public/education', {
             pageTitle: '/Admin Education',
             path: '/admin/education',
             eds: education
@@ -42,7 +42,7 @@ exports.getEducation = (req, res, next) => {
 };
 
 exports.getAddEducation = (req, res, next) => {
-    res.render('admin/add-education', {
+    res.render('admin/public/add-education', {
         pageTitle: 'Add Education',
         path: '/admin/add-education',
         editing: false
@@ -70,7 +70,7 @@ exports.getEditEducation = (req, res, next) => {
         if (!education) {
             return res.redirect('/');
         }
-        res.render('admin/add-education', {
+        res.render('admin/public/add-education', {
             pageTitle: 'Edit Education',
             path: '/admin/edit-education',
             editing: editMode,
@@ -109,7 +109,7 @@ exports.postDeleteEducation = (req, res, next) => {
 // Work Controllers
 exports.getWork = (req, res, next) => {
     Work.fetchAll(work => {
-        res.render('admin/work', {
+        res.render('admin/public/work', {
             pageTitle: '/Admin Work',
             path: '/admin/work',
             wrks: work
@@ -118,7 +118,7 @@ exports.getWork = (req, res, next) => {
 };
 
 exports.getAddWork = (req, res, next) => {
-    res.render('admin/add-work', {
+    res.render('admin/public/add-work', {
         pageTitle: 'Add Work',
         path: '/admin/add-work',
         editing: false
@@ -146,7 +146,7 @@ exports.getEditWork = (req, res, next) => {
         if (!work) {
             return res.redirect('/');
         }
-        res.render('admin/add-work', {
+        res.render('admin/public/add-work', {
             pageTitle: 'Edit Work',
             path: '/admin/edit-work',
             editing: editMode,
@@ -185,7 +185,7 @@ exports.postDeleteWork = (req, res, next) => {
 // Skills Controllers 
 exports.getEditSkills = (req, res, next) => {
     Skills.fetchAll(skills => {
-        res.render('admin/skills', {
+        res.render('admin/public/skills', {
             pageTitle: 'Edit Skills',
             path: '/admin/skills',
             skillNames: skills.skillNames,
@@ -211,7 +211,7 @@ exports.postEditSkills = (req, res, next) => {
 // Projects Controllers
 exports.getProjects = (req, res, next) => {
     Projects.fetchAll(projects => {
-        res.render('admin/projects', {
+        res.render('admin/public/projects', {
             pageTitle: 'Projects',
             path: '/admin/projects',
             projects: projects
@@ -220,7 +220,7 @@ exports.getProjects = (req, res, next) => {
 };
 
 exports.getAddProject = (req, res, next) => {
-    res.render('admin/add-project', {
+    res.render('admin/public/add-project', {
         pageTitle: 'Add Project',
         path: '/admin/add-project',
         editing: false
@@ -247,7 +247,7 @@ exports.getEditProject = (req, res, next) => {
         if (!project) {
             return res.redirect('/');
         }
-        res.render('admin/add-project', {
+        res.render('admin/public/add-project', {
             pageTitle: 'Edit Project',
             path: '/admin/edit-project',
             editing: editMode,
@@ -284,7 +284,7 @@ exports.postDeleteProject = (req, res, next) => {
 // Contact Controllers
 exports.getEditContact = (req, res, next) => {
     Contact.fetchAll(contact => {
-        res.render('admin/contact', {
+        res.render('admin/public/contact', {
             pageTitle: 'Edit Contacts',
             path: '/admin/contact',
             contacts: contact

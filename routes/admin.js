@@ -66,46 +66,45 @@ router.post('/admin/contact', publicAdminController.postEditContact);
 
 
 // About social routes
-router.get('/admin/about', socialAdminController.getEditAbout);
+router.get('/admin/about-social', socialAdminController.getEditAbout);
 
-router.post('/admin/about', socialAdminController.postEditAbout);
+router.post('/admin/about-social', socialAdminController.postEditAbout);
 
 // Books routes
-router.get('/admin/education', socialAdminController.getEducation)
+router.get('/admin/books', socialAdminController.getBooks)
 
-router.get('/admin/add-education', socialAdminController.getAddEducation);
+router.get('/admin/add-book', socialAdminController.getAddBook);
 
-router.post('/admin/add-education', socialAdminController.postAddEducation);
+router.post('/admin/add-book', socialAdminController.postAddBook);
 
-router.get('/admin/edit-education/:educationId', socialAdminController.getEditEducation);
+router.get('/admin/edit-book/:bookId', socialAdminController.getEditBook);
 
-router.post('/admin/edit-education', socialAdminController.postEditEducation);
+router.post('/admin/edit-book', socialAdminController.postEditBook);
 
-router.post('/admin/delete-education', publicAdminController.postDeleteEducation);
-
+router.post('/admin/delete-book', socialAdminController.postDeleteBook);
 
 // Hobbies routes
-router.get('/admin/skills', socialAdminController.getEditSkills);
+router.get('/admin/hobbies', socialAdminController.getEditHobbies);
 
-router.post('/admin/skills', socialAdminController.postEditSkills);
+router.post('/admin/hobbies', socialAdminController.postEditHobbies);
 
 // Fashion routes
-router.get('/admin/projects', socialAdminController.getProjects)
+router.get('/admin/fashion', socialAdminController.getFashion)
 
-router.get('/admin/add-project', socialAdminController.getAddProject);
+router.get('/admin/add-fashion', socialAdminController.getAddFashion);
 
-router.post('/admin/add-project', socialAdminController.postAddProject);
+router.post('/admin/add-fashion', socialAdminController.postAddFashion);
 
-router.get('/admin/edit-project/:projectId', socialAdminController.getEditProject);
+router.get('/admin/edit-fashion/:fashionId', socialAdminController.getEditFashion);
 
-router.post('/admin/edit-project', socialAdminController.postEditProject);
+router.post('/admin/edit-fashion', socialAdminController.postEditFashion);
 
-router.post('/admin/delete-project', socialAdminController.postDeleteProject);
+router.post('/admin/delete-fashion', socialAdminController.postDeleteFashion);
 
 // Contact routes
-router.get('/admin/contact',socialAdminController.getEditContact);
+router.get('/admin/contact-social',socialAdminController.getEditContact);
 
-router.post('/admin/contact', socialAdminController.postEditContact);
+router.post('/admin/contact-social', socialAdminController.postEditContact);
 
 
 module.exports = router;

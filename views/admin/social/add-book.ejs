@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <main>
+        <form class="product-form" action="/admin/<% if (editing) { %>edit-book<% } else { %>add-book<% } %>" method="POST">
+            <div class="form-control">
+                <label for="order">Order</label>
+                <input type="number" name="order" id="order" value="<% if (editing) { %><%= books.order %><% } %>">                
+            </div>
+            <div class="form-control">
+                <label for="title">Name of Book</label>
+                <input type="text" name="title" id="title" value="<% if (editing) { %><%= books.title %><% } %>">                
+            </div>
+            <div class="form-control">
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author" value="<% if (editing) { %><%= books.author %><% } %>">                
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea type="text" name="description" id="description"><% if (editing) { %><%= books.description %><% } %></textarea>
+            </div>
+            <% if (editing) { %>
+                <input type="hidden" value="<%= books.id %>" name="bookId">
+            <% } %>
+            <div class="button-control">
+                <button class="btn" type="submit"><% if (editing) { %>Update Book<% } else { %>Add Book<% } %></button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
