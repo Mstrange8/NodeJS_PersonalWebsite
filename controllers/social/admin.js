@@ -131,74 +131,23 @@ exports.postEditHobbies = (req, res, next) => {
 
 
 // Fashion Controllers
-exports.getFashion = (req, res, next) => {
+exports.getEditFashion = (req, res, next) => {
     Fashion.fetchAll(fashion => {
         res.render('admin/social/fashion', {
-            pageTitle: 'Fashion',
+            pageTitle: 'Edit Fashion',
             path: '/admin/fashion',
             fashion: fashion
         });
     });
 };
 
-exports.getAddFashion = (req, res, next) => {
-    res.render('admin/social/add-fashion', {
-        pageTitle: 'Add Fashion',
-        path: '/admin/add-fashion',
-        editing: false
-    });
-};
-
-exports.postAddFashion = (req, res, next) => {
-    const order = req.body.order;
-    const title = req.body.title;
-    const image = req.body.image;
-    const description = req.body.description;
-    const fashion = new Fashion(null, order, title, image, description);
-    fashion.save();
-    res.redirect('/admin/fashion');
-};
-
-exports.getEditFashion = (req, res, next) => {
-    const editMode = req.query.edit;
-    if (!editMode) {
-        res.redirect('/');
-    }
-    const fashId = req.params.fashionId;
-    Fashion.findById(fashId, fashion => {
-        if (!fashion) {
-            return res.redirect('/');
-        }
-        res.render('admin/social/add-fashion', {
-            pageTitle: 'Edit Fashion',
-            path: '/admin/edit-fashion',
-            editing: editMode,
-            fashion: fashion
-        });
-    });
-};
-
 exports.postEditFashion = (req, res, next) => {
-    const id = req.body.projectId;
-    const order = req.body.order;
-    const title = req.body.title;
-    const image = req.body.image;
-    const description = req.body.description;
-    const updatedFashion = new Fashion(
-        id,
-        order,
-        title,
-        image,
-        description
+    const images = req.body.images;
+    const updatedFashion = new Fashion (
+        images
     );
     updatedFashion.save();
-    res.redirect('/admin/fashion');
-};
-
-exports.postDeleteFashion = (req, res, next) => {
-    const fashId = req.body.fashionId;
-    Fashion.deleteById(fashId);
-    res.redirect('/admin/fashion');
+    res.redirect('/social');
 };
 
 
@@ -227,5 +176,5 @@ exports.postEditContact = (req, res, next) => {
         phone
     );
     updatedContact.save();
-    res.redirect('/');
+    res.redirect('/social');
 };

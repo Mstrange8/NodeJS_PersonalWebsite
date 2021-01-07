@@ -93,7 +93,6 @@
             <h2 class="text-blue">Fashion</h2>
         </div>
         <div class="CSSgal">
-
             <!-- Don't wrap targets in parent -->
             <s id="s1"></s>
             <s id="s2"></s>
@@ -101,18 +100,10 @@
             <s id="s4"></s>
         
             <div class="slider">
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
-                <img src="<%= imgs.content1 %>" alt='image1'>
+                <% for (let image of images) { %>
+                    <img src="<%= image %>" alt='image'>
+                    <% console.log(image) %>
+                <% } %>
 
             </div>
         
@@ -122,9 +113,6 @@
                 <div><a href="#s2"></a><a href="#s4"></a></div>
                 <div><a href="#s3"></a><a href="#s1"></a></div>
             </div>
-        
-
-            
         </div>
     </section>
 

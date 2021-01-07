@@ -89,17 +89,9 @@ router.get('/admin/hobbies', socialAdminController.getEditHobbies);
 router.post('/admin/hobbies', socialAdminController.postEditHobbies);
 
 // Fashion routes
-router.get('/admin/fashion', socialAdminController.getFashion)
+router.get('/admin/fashion', socialAdminController.getEditFashion);
 
-router.get('/admin/add-fashion', socialAdminController.getAddFashion);
-
-router.post('/admin/add-fashion', socialAdminController.postAddFashion);
-
-router.get('/admin/edit-fashion/:fashionId', socialAdminController.getEditFashion);
-
-router.post('/admin/edit-fashion', socialAdminController.postEditFashion);
-
-router.post('/admin/delete-fashion', socialAdminController.postDeleteFashion);
+router.post('/admin/fashion', socialAdminController.postEditFashion);
 
 // Contact routes
 router.get('/admin/contact-social',socialAdminController.getEditContact);

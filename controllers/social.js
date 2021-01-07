@@ -17,7 +17,7 @@ exports.getSocialPage = (req, res, next) => {
                             books: books,
                             hobbieNames: hobbies.hobbieNames.split(" "),
                             hobbiePercents: hobbies.hobbiePercents.split(" "),
-                            fashion: fashion,
+                            images: fashion.images.replace(/[\n\r]/g, " ").split("  "),
                             contacts: contacts
                         });
                     });
@@ -25,5 +25,6 @@ exports.getSocialPage = (req, res, next) => {
             });
         });
     });
+
 };
 
