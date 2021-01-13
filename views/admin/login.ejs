@@ -11,14 +11,17 @@
     <header class="header">
         <a href="/">Home</a>
     </header>
-    <form class="product-form" action="/admin" method="POST">
+    <% if (messages.error) { %>
+        <%= messages.error %>
+    <% } %>
+    <form class="product-form" action="/login" method="POST">
         <div class="form-control">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email">
+            <input type="email" name="email" id="email" required>
         </div>
         <div class="form-control">
             <label for="password">Password</label>
-            <input type="text" name="password" id="password">
+            <input type="password" name="password" id="password" required>
         </div>
         <div class="button-control">
             <button class="btn" type="submit">Login</button>

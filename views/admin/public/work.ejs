@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <div class="card__button">
-        <a href="/" class="btn">Home</a>
-        <a href="/admin/add-work" class="btn">New Work</a>
-    </div>
-    <hr>
+    <header class="header">
+        <a href="/admin">Admin</a>
+        <a href="/admin/add-work">Add Work</a>
+        <a class="home-link" href="/">Home</a>
+        <form action="/logout?_method=DELETE" method="POST">
+            <button type="submit">Log Out</button>
+        </form>
+    </header>
     <% if (wrks.length > 0) { %>
         <div class="grid">
             <% for (let wrk of wrks) { %>

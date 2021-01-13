@@ -7,7 +7,7 @@ const Contact = require('../../models/contact');
 
 // Admin Controllers
 exports.getAdmin = (req, res, next) => {
-    res.render('admin/login', {
+    res.render('admin/admin', {
        pageTitle: 'Login',
        path: '/admin' 
     });
