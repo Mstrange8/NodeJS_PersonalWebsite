@@ -8,6 +8,11 @@ const publicAdminController = require('../controllers/public/admin');
 
 const socialAdminController = require('../controllers/social/admin');
 
+// Admin
+router.get('/admin', publicAdminController.getAdmin);
+
+router.post('/admin', publicAdminController.postAdmin);
+
 // About routes
 router.get('/admin/about', publicAdminController.getEditAbout);
 

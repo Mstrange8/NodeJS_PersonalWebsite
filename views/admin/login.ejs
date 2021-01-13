@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <a href="/">Home</a>
+    </header>
+    <form class="product-form" action="/admin" method="POST">
+        <div class="form-control">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email">
+        </div>
+        <div class="form-control">
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password">
+        </div>
+        <div class="button-control">
+            <button class="btn" type="submit">Login</button>
+        </div>
+    </form>
+
+</body>
+</html>

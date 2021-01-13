@@ -5,6 +5,20 @@ const Skills = require('../../models/skills');
 const Projects = require('../../models/projects');
 const Contact = require('../../models/contact');
 
+// Admin Controllers
+exports.getAdmin = (req, res, next) => {
+    res.render('admin/login', {
+       pageTitle: 'Login',
+       path: '/admin' 
+    });
+};
+
+exports.postAdmin = (req, res, next) => {
+    res.render('admin/admin', {
+        pageTitle: 'Admin',
+        path: '/admin'
+    });
+};
 
 // About Controllers
 exports.getEditAbout = (req, res, next) => {
