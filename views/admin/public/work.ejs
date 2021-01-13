@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+    <div class="card__button">
+        <a href="/" class="btn">Home</a>
+        <a href="/admin/add-work" class="btn">New Work</a>
+    </div>
+    <hr>
     <% if (wrks.length > 0) { %>
         <div class="grid">
             <% for (let wrk of wrks) { %>

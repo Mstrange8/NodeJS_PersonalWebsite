@@ -173,3 +173,14 @@ color: white;
     float: left;
     padding: 2rem;
 }
+
+.card__button {
+  padding: 1rem;
+  text-align: center;
+}
+
+.card__button a {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 1rem;
+}

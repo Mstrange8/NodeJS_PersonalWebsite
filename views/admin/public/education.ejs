@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+    <div class="card__button">
+        <a href="/" class="btn">Home</a>
+        <a href="/admin/add-education" class="btn">New Education</a>
+    </div>
+    <hr>
     <% if (eds.length > 0) { %>
         <div class="grid">
             <% for (let ed of eds) { %>
