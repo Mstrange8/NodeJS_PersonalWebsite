@@ -13,12 +13,7 @@ exports.getAdmin = (req, res, next) => {
     });
 };
 
-exports.postAdmin = (req, res, next) => {
-    res.render('admin/admin', {
-        pageTitle: 'Admin',
-        path: '/admin'
-    });
-};
+
 
 // About Controllers
 exports.getEditAbout = (req, res, next) => {

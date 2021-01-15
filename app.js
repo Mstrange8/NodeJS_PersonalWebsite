@@ -37,12 +37,11 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method'));
 
 const adminRoutes = require('./routes/admin');
 const publicRoutes = require('./routes/public');
 const socialRoutes = require('./routes/social');
-const router = require('./routes/social');
 
 app.use(adminRoutes);
 app.use(publicRoutes);

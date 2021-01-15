@@ -63,7 +63,7 @@ router.post('/admin/delete-work', checkAuthenticated, publicAdminController.post
 // Skills routes
 router.get('/admin/skills', checkAuthenticated, publicAdminController.getEditSkills);
 
-router.post('/admin/skills', publicAdminController.postEditSkills);
+router.post('/admin/skills', checkAuthenticated, publicAdminController.postEditSkills);
 
 // Projects routes
 router.get('/admin/projects', checkAuthenticated, publicAdminController.getProjects)
@@ -74,7 +74,7 @@ router.post('/admin/add-project', checkAuthenticated, publicAdminController.post
 
 router.get('/admin/edit-project/:projectId', checkAuthenticated, publicAdminController.getEditProject);
 
-router.post('/admin/edit-project', publicAdminController.postEditProject);
+router.post('/admin/edit-project', checkAuthenticated, publicAdminController.postEditProject);
 
 router.post('/admin/delete-project', checkAuthenticated, publicAdminController.postDeleteProject);
 
@@ -83,41 +83,38 @@ router.get('/admin/contact', checkAuthenticated, publicAdminController.getEditCo
 
 router.post('/admin/contact', checkAuthenticated, publicAdminController.postEditContact);
 
-
-
-
 // About social routes
-router.get('/admin/about-social', socialAdminController.getEditAbout);
+router.get('/admin/about-social', checkAuthenticated, socialAdminController.getEditAbout);
 
-router.post('/admin/about-social', socialAdminController.postEditAbout);
+router.post('/admin/about-social', checkAuthenticated, socialAdminController.postEditAbout);
 
 // Books routes
-router.get('/admin/books', socialAdminController.getBooks)
+router.get('/admin/books', checkAuthenticated, socialAdminController.getBooks)
 
-router.get('/admin/add-book', socialAdminController.getAddBook);
+router.get('/admin/add-book', checkAuthenticated, socialAdminController.getAddBook);
 
-router.post('/admin/add-book', socialAdminController.postAddBook);
+router.post('/admin/add-book', checkAuthenticated, socialAdminController.postAddBook);
 
-router.get('/admin/edit-book/:bookId', socialAdminController.getEditBook);
+router.get('/admin/edit-book/:bookId', checkAuthenticated, socialAdminController.getEditBook);
 
-router.post('/admin/edit-book', socialAdminController.postEditBook);
+router.post('/admin/edit-book', checkAuthenticated, socialAdminController.postEditBook);
 
-router.post('/admin/delete-book', socialAdminController.postDeleteBook);
+router.post('/admin/delete-book', checkAuthenticated, socialAdminController.postDeleteBook);
 
 // Hobbies routes
-router.get('/admin/hobbies', socialAdminController.getEditHobbies);
+router.get('/admin/hobbies', checkAuthenticated, socialAdminController.getEditHobbies);
 
-router.post('/admin/hobbies', socialAdminController.postEditHobbies);
+router.post('/admin/hobbies', checkAuthenticated, socialAdminController.postEditHobbies);
 
 // Fashion routes
-router.get('/admin/fashion', socialAdminController.getEditFashion);
+router.get('/admin/fashion', checkAuthenticated, socialAdminController.getEditFashion);
 
-router.post('/admin/fashion', socialAdminController.postEditFashion);
+router.post('/admin/fashion', checkAuthenticated, socialAdminController.postEditFashion);
 
 // Contact routes
-router.get('/admin/contact-social',socialAdminController.getEditContact);
+router.get('/admin/contact-social', checkAuthenticated, socialAdminController.getEditContact);
 
-router.post('/admin/contact-social', socialAdminController.postEditContact);
+router.post('/admin/contact-social', checkAuthenticated, socialAdminController.postEditContact);
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
