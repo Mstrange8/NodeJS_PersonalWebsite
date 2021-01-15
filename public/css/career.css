@@ -292,6 +292,18 @@ body {
     padding-right: .5rem;
 }
 
+.contact-section .icons {
+    display: flex;
+    margin-top: 5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.icons a {
+    margin: auto 3%;
+}
+
+
 .footer {
     padding: 5rem 0;
     background: rgb(9, 64, 72)
