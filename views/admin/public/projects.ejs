@@ -33,10 +33,10 @@
                     <h5><%= project.description %></h5>
                 </div>
                 <div class="card__actions">
-                    <a href="/admin/edit-project/<%= project.id %>?edit=true" class="btn">Edit</a>
+                    <a href="/admin/edit-project/<%= project._id %>?edit=true" class="btn">Edit</a>
                     <br><br/>
                     <form action="/admin/delete-project" method="POST">
-                        <input type="hidden" value="<%= project.id %>" name="projectId">
+                        <input type="hidden" value="<%= project._id %>" name="projectId">
                         <button class="btn" type="submit">Delete</button>                    
                     </form>
                 </div>

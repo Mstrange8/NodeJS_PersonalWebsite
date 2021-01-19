@@ -5,15 +5,15 @@ const Fashion = require('../models/fashion');
 const Contact = require('../models/contact-social');
 
 exports.getSocialPage = (req, res, next) => {
-    Contents.fetchContents(contents => {
-        Books.fetchAll(books => {
+    Contents.fetchAll().then(contents => {
+        Books.fetchAll().then(books => {
             Hobbies.fetchAll(hobbies => {
                 Fashion.fetchAll(fashion => {
                     Contact.fetchAll(contacts => {
                         res.render('social/social', {
                             pageTitle: 'Social',
                             path: '/social',
-                            imgs: contents,
+                            imgs: contents[0],
                             books: books,
                             hobbieNames: hobbies.hobbieNames.split(" "),
                             hobbiePercents: hobbies.hobbiePercents.split(" "),

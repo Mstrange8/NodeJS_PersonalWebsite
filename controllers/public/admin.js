@@ -17,12 +17,15 @@ exports.getAdmin = (req, res, next) => {
 
 // About Controllers
 exports.getEditAbout = (req, res, next) => {
-    Contents.fetchContents(contents => {
+    Contents.fetchAll().then(content => {
         res.render('admin/public/about', {
             pageTitle: 'Edit About',
             path: '/admin/about',
-            imgs: contents
+            imgs: content
         });
+    })
+    .catch(err => {
+        console.log(err);
     });
 };
 
@@ -33,8 +36,13 @@ exports.postEditAbout = (req, res, next) => {
         content1,
         content2
     );
-    updatedContents.save();
-    res.redirect('/');
+    updatedContents.save()
+    .then(result => {
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 

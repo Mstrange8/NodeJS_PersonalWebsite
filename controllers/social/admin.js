@@ -8,12 +8,15 @@ const Contact = require('../../models/contact-social');
 
 // About Controllers
 exports.getEditAbout = (req, res, next) => {
-    Contents.fetchContents(contents => {
+    Contents.fetchAll().then(content => {
         res.render('admin/social/about', {
             pageTitle: 'Edit About Social',
             path: '/admin/about-social',
-            imgs: contents
+            imgs: content[0]
         });
+    })
+    .catch(err => {
+        console.log(err);
     });
 };
 
@@ -24,15 +27,20 @@ exports.postEditAbout = (req, res, next) => {
         content1,
         content2
     );
-    updatedContents.save();
-    res.redirect('/social');
+    updatedContents.save()
+    .then(result => {
+        res.redirect('/social');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 
 
 // Books Controllers
 exports.getBooks = (req, res, next) => {
-    Books.fetchAll(books => {
+    Books.fetchAll().then(books => {
         res.render('admin/social/books', {
             pageTitle: '/Admin Books',
             path: '/admin/books',
@@ -54,7 +62,7 @@ exports.postAddBook = (req, res, next) => {
     const title = req.body.title;
     const author = req.body.author;
     const description = req.body.description;
-    const books = new Books(null, order, title, author, description);
+    const books = new Books(order, title, author, description);
     books.save();
     res.redirect('/admin/books');
 };
@@ -66,27 +74,25 @@ exports.getEditBook = (req, res, next) => {
         res.redirect('/');
     }
     const bkId = req.params.bookId;
-    Books.findById(bkId, books => {
-        if (!books) {
-            return res.redirect('/');
-        }
-        res.render('admin/social/add-book', {
-            pageTitle: 'Edit Book',
-            path: '/admin/edit-book',
-            editing: editMode,
-            books: books
-        });
-    });
+    console.log(bkId);
+    Books.findById(bkId)
+        .then(books => {
+            res.render('admin/social/add-book', {
+                pageTitle: 'Edit Book',
+                path: '/admin/edit-book',
+                editing: editMode,
+                books: books
+            });
+        })
+        .catch(err => console.log(err));
 };
 
 exports.postEditBook = (req, res, next) => {
-    const id = req.body.bookId;
     const order = req.body.order;
     const title = req.body.title;
     const author = req.body.author;
     const description = req.body.description;
     const updatedBooks = new Books(
-        id,
         order,
         title,
         author,

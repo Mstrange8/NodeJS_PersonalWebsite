@@ -10,6 +10,7 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const mongoConnect = require('./util/database').mongoConnect;
 
 const app = express();
 
@@ -47,4 +48,7 @@ app.use(adminRoutes);
 app.use(publicRoutes);
 app.use(socialRoutes);
 
-app.listen(process.env.PORT || 3000);
+
+mongoConnect(() => {
+    app.listen(process.env.PORT || 3000);
+});

@@ -6,7 +6,7 @@ const Projects = require('../models/projects');
 const Contact = require('../models/contact');
 
 exports.getCareerPage = (req, res, next) => {
-    Contents.fetchContents(contents => {
+    Contents.fetchAll().then(contents => {
         Education.fetchAll(eds => {
             Work.fetchAll(wrks => {
                 Skills.fetchAll(skills => {
@@ -15,7 +15,7 @@ exports.getCareerPage = (req, res, next) => {
                             res.render('public/career', {
                                 pageTitle: 'Career',
                                 path: '/career',
-                                imgs: contents,
+                                imgs: contents[0],
                                 eds: eds,
                                 wrks: wrks,
                                 skillNames: skills.skillNames.split(" "),

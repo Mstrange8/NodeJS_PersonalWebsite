@@ -1,39 +1,36 @@
-const fs = require('fs');
-const path = require('path');
-const { exit } = require('process');
+const getDb = require('../util/database').getDb;
 
-const p = path.join(
-    path.dirname(require.main.filename),
-    'data',
-    'about.json'
-);
-
-const getContentsFromFile = (callback) => {
-    fs.readFile(p, (err, fileContent) => {
-        if (err) {
-            callback([]);
-        } else {
-            callback(JSON.parse(fileContent));
-        }
-    });
-}
-
-module.exports = class Contents {
+class Contents {
     constructor(content1, content2) {
         this.content1 = content1;
         this.content2 = content2;
     }
 
     save() {
-        getContentsFromFile(contents => {
-            contents = this;
-            fs.writeFile(p, JSON.stringify(contents), err => {
-                console.log(err);
-            });
+        const db = getDb();
+        return db.collection('about')
+        .insertOne(this)
+        .then(result => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
-    static fetchContents(callback) {
-        getContentsFromFile(callback);
+    static fetchAll() {
+        const db = getDb();
+        return db
+        .collection('about')
+        .find()
+        .toArray()
+        .then(contents => {
+            return contents;
+        })
+        .catch(err=> {
+            console.log(err);
+        });
     }
 }
+
+module.exports = Contents;

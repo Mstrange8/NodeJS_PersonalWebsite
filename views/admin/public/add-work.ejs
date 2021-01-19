@@ -31,7 +31,7 @@
                 <textarea type="text" name="description" id="description"><% if (editing) { %><%= wrk.description %><% } %></textarea>
             </div>
             <% if (editing) { %>
-                <input type="hidden" value="<%= wrk.id %>" name="workId">
+                <input type="hidden" value="<%= wrk._id %>" name="workId">
             <% } %>
             <div class="button-control">
                 <button class="btn" type="submit"><% if (editing) { %>Update Work<% } else { %>Add Work<% } %></button>

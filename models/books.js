@@ -1,27 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const { exit } = require('process');
+const getDb = require('../util/database').getDb;
+const mongo = require('mongodb');
 
-const p = path.join(
-    path.dirname(require.main.filename),
-    'data',
-    'books.json'
-);
-
-
-const getBooksFromFile = (callback) => {
-    fs.readFile(p, (err, fileContent) => {
-        if (err) {
-            callback([]);
-        } else {
-            callback(JSON.parse(fileContent));
-        }
-    });
-}
-
-module.exports = class Books {
-    constructor(id, order, title, author, description) {
-        this.id = id;
+class Books {
+    constructor(order, title, author, description) {
         this.order = order;
         this.title = title;
         this.author = author;
@@ -29,48 +10,45 @@ module.exports = class Books {
     }
 
     save() {
-        getBooksFromFile(book => {
-            if (this.id) {
-                const existingBooksIndex = book.findIndex(bk => bk.id === this.id);
-                const updatedBooks = [...book];
-                updatedBooks[existingBooksIndex] = this;
-                fs.writeFile(p, JSON.stringify(updatedBooks.sort(function(first, second) {
-                    return first.order - second.order
-                })), err => {
-                    console.log(err);
-                });
-            } else {
-                this.id = Math.random().toString();
-                book.push(this);
-                fs.writeFile(p, JSON.stringify(book.sort(function(first, second) {
-                    return first.order - second.order
-                })), err => {
-                    console.log(err);
-                });
-            } 
+        const db = getDb();
+        return db.collection('books')
+        .insertOne(this)
+        .then(result => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
-    static deleteById(id) {
-        getBooksFromFile(books => {
-            const updatedBooks = books.filter(bk => bk.id !== id);
-            fs.writeFile(p, JSON.stringify(updatedBooks.sort(function(first, second) {
-                return first.order - second.order
-            })), err => {
-                console.log(err);
-            });
+    static fetchAll() {
+        const db = getDb();
+        return db
+        .collection('books')
+        .find()
+        .toArray()
+        .then(contents => {
+            return contents;
+        })
+        .catch(err=> {
+            console.log(err);
         });
     }
 
-    static fetchAll(callback) {
-        getBooksFromFile(callback);
-    }
-
-    static findById(id, callback) {
-        getBooksFromFile(books => {
-            const book = books.find(p => p.id === id);
-            callback(book);
+    static findById(bookId) {
+        const db = getDb();
+        return db
+        .collection('books')
+        .find({ _id: new mongo.ObjectID(bookId) })
+        .next()
+        .then(book => {
+            console.log(book);
+            return book;
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
+}
 
-};
+module.exports = Books;
