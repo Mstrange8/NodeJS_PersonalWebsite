@@ -21,7 +21,7 @@ exports.getEditAbout = (req, res, next) => {
         res.render('admin/public/about', {
             pageTitle: 'Edit About',
             path: '/admin/about',
-            imgs: content
+            imgs: content[0]
         });
     })
     .catch(err => {
@@ -300,14 +300,13 @@ exports.postDeleteProject = (req, res, next) => {
 
 // Contact Controllers
 exports.getEditContact = (req, res, next) => {
-    Contact.fetchAll(contact => {
+    Contact.fetchAll().then(contact => {
         res.render('admin/public/contact', {
             pageTitle: 'Edit Contacts',
             path: '/admin/contact',
-            contacts: contact
+            contacts: contact[0]
         });
     });
-    
 };
 
 exports.postEditContact = (req, res, next) => {
@@ -321,6 +320,11 @@ exports.postEditContact = (req, res, next) => {
         email,
         phone
     );
-    updatedContact.save();
-    res.redirect('/');
+    updatedContact.save()
+    .then(() => {
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };

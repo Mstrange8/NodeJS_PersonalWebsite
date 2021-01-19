@@ -2,17 +2,23 @@ const getDb = require('../util/database').getDb;
 const mongo = require('mongodb');
 
 class Books {
-    constructor(order, title, author, description) {
+    constructor(order, title, author, description, id) {
         this.order = order;
         this.title = title;
         this.author = author;
         this.description = description;
+        this._id = id ? new mongo.ObjectID(id) : null;
     }
 
     save() {
         const db = getDb();
-        return db.collection('books')
-        .insertOne(this)
+        let dbOp;
+        if (this._id) {
+            dbOp = db.collection('books').updateOne({ _id: this._id }, {$set: this});
+        } else {
+            dbOp = db.collection('books').insertOne(this);
+        }
+        return dbOp
         .then(result => {
             console.log(result);
         })
@@ -27,8 +33,8 @@ class Books {
         .collection('books')
         .find()
         .toArray()
-        .then(contents => {
-            return contents;
+        .then(books => {
+            return books;
         })
         .catch(err=> {
             console.log(err);
@@ -44,6 +50,19 @@ class Books {
         .then(book => {
             console.log(book);
             return book;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    static deleteById(bookId) {
+        const db = getDb();
+        return db
+        .collection('books')
+        .deleteOne({_id: new mongo.ObjectId(bookId)})
+        .then(result => {
+            console.log('deleted')
         })
         .catch(err => {
             console.log(err);

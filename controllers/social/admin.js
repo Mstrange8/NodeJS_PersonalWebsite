@@ -5,7 +5,6 @@ const Fashion = require('../../models/fashion');
 const Contact = require('../../models/contact-social');
 
 
-
 // About Controllers
 exports.getEditAbout = (req, res, next) => {
     Contents.fetchAll().then(content => {
@@ -62,7 +61,7 @@ exports.postAddBook = (req, res, next) => {
     const title = req.body.title;
     const author = req.body.author;
     const description = req.body.description;
-    const books = new Books(order, title, author, description);
+    const books = new Books(order, title, author, description, null);
     books.save();
     res.redirect('/admin/books');
 };
@@ -74,20 +73,20 @@ exports.getEditBook = (req, res, next) => {
         res.redirect('/');
     }
     const bkId = req.params.bookId;
-    console.log(bkId);
     Books.findById(bkId)
-        .then(books => {
+        .then(book => {
             res.render('admin/social/add-book', {
                 pageTitle: 'Edit Book',
                 path: '/admin/edit-book',
                 editing: editMode,
-                books: books
+                books: book
             });
         })
         .catch(err => console.log(err));
 };
 
 exports.postEditBook = (req, res, next) => {
+    const bookId = req.body.bookId;
     const order = req.body.order;
     const title = req.body.title;
     const author = req.body.author;
@@ -96,7 +95,8 @@ exports.postEditBook = (req, res, next) => {
         order,
         title,
         author,
-        description
+        description,
+        bookId
     );
     updatedBooks.save();
     res.redirect('/admin/books');
@@ -104,8 +104,12 @@ exports.postEditBook = (req, res, next) => {
 
 exports.postDeleteBook = (req, res, next) => {
     const bkId = req.body.bookId;
-    Books.deleteById(bkId);
-    res.redirect('/admin/books');
+    Books.deleteById(bkId)
+        .then(() => {
+            console.log('DESTROYED PRODUCTS');
+            res.redirect('/admin/books');
+        })
+        .catch(err => console.log(err));
 };
 
 
@@ -164,7 +168,7 @@ exports.getEditContact = (req, res, next) => {
         res.render('admin/social/contact', {
             pageTitle: 'Edit Contacts',
             path: '/admin/contact-social',
-            contacts: contact
+            contacts: contact[0]
         });
     });
     
@@ -181,6 +185,11 @@ exports.postEditContact = (req, res, next) => {
         email,
         phone
     );
-    updatedContact.save();
-    res.redirect('/social');
+    updatedContact.save()
+    .then(() => {
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };

@@ -9,7 +9,7 @@ class Contents {
     save() {
         const db = getDb();
         return db.collection('about')
-        .insertOne(this)
+        .updateOne({}, {$set: this})
         .then(result => {
             console.log(result);
         })

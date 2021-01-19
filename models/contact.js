@@ -1,24 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { exit } = require('process');
+const getDb = require('../util/database').getDb;
 
-const p = path.join(
-    path.dirname(require.main.filename),
-    'data',
-    'contact.json'
-);
-
-const getContactsFromFile = (callback) => {
-    fs.readFile(p, (err, fileContent) => {
-        if (err) {
-            callback([]);
-        } else {
-            callback(JSON.parse(fileContent));
-        }
-    });
-}
-
-module.exports = class Contact {
+class Contacts {
     constructor(quote, location, email, phone) {
         this.quote = quote;
         this.location = location;
@@ -27,15 +9,31 @@ module.exports = class Contact {
     }
 
     save() {
-        getContactsFromFile(contacts => {
-            contacts = this;
-            fs.writeFile(p, JSON.stringify(contacts), err => {
-                console.log(err);
-            });
+        const db = getDb();
+        return db.collection('contact')
+        .updateOne({}, {$set: this})
+        .then(result => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
-    static fetchAll(callback) {
-        getContactsFromFile(callback);
+    static fetchAll() {
+        const db = getDb();
+        return db
+        .collection('contact')
+        .find()
+        .toArray()
+        .then(contacts => {
+            return contacts;
+        })
+        .catch(err=> {
+            console.log(err);
+        });
     }
 }
+
+module.exports = Contacts;
+
