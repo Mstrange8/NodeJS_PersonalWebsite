@@ -37,7 +37,7 @@ exports.postEditAbout = (req, res, next) => {
         content2
     );
     updatedContents.save()
-    .then(result => {
+    .then(() => {
         res.redirect('/');
     })
     .catch(err => {
@@ -49,9 +49,9 @@ exports.postEditAbout = (req, res, next) => {
 
 // Education Controllers
 exports.getEducation = (req, res, next) => {
-    Education.fetchAll(education => {
+    Education.fetchAll().then(education => {
         res.render('admin/public/education', {
-            pageTitle: '/Admin Education',
+            pageTitle: 'Admin Education',
             path: '/admin/education',
             eds: education
         });
@@ -72,9 +72,14 @@ exports.postAddEducation = (req, res, next) => {
     const date = req.body.date;
     const degree = req.body.degree;
     const description = req.body.description;
-    const education = new Education(null, order, school, date, degree, description);
-    education.save();
-    res.redirect('/admin/education');
+    const education = new Education(order, school, date, degree, description, null);
+    education.save()
+    .then(() => {
+        res.redirect('/admin/education');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.getEditEducation = (req, res, next) => {
@@ -83,51 +88,58 @@ exports.getEditEducation = (req, res, next) => {
         res.redirect('/');
     }
     const eduId = req.params.educationId;
-    Education.findById(eduId, education => {
-        if (!education) {
-            return res.redirect('/');
-        }
+    Education.findById(eduId)
+        .then(education => {
         res.render('admin/public/add-education', {
             pageTitle: 'Edit Education',
             path: '/admin/edit-education',
             editing: editMode,
             ed: education
         });
-    });
+    })
+    .catch(err => console.log(err));
 };
 
 exports.postEditEducation = (req, res, next) => {
-    const id = req.body.educationId;
+    const eduId = req.body.educationId;
     const order = req.body.order;
     const school = req.body.school;
     const date = req.body.date;
     const degree = req.body.degree;
     const description = req.body.description;
     const updatedEducation = new Education(
-        id,
         order,
         school,
         date,
         degree,
-        description
+        description,
+        eduId
     );
-    updatedEducation.save();
-    res.redirect('/admin/education');
+    updatedEducation.save()
+    .then(() => {
+        res.redirect('/admin/education');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.postDeleteEducation = (req, res, next) => {
     const eduId = req.body.educationId;
-    Education.deleteById(eduId);
-    res.redirect('/admin/education');
+    Education.deleteById(eduId)
+        .then(() => {
+            res.redirect('/admin/education');
+        })
+        .catch(err => console.log(err));
 };
 
 
 
 // Work Controllers
 exports.getWork = (req, res, next) => {
-    Work.fetchAll(work => {
+    Work.fetchAll().then(work => {
         res.render('admin/public/work', {
-            pageTitle: '/Admin Work',
+            pageTitle: 'Admin Work',
             path: '/admin/work',
             wrks: work
         });
@@ -148,9 +160,14 @@ exports.postAddWork = (req, res, next) => {
     const date = req.body.date;
     const title = req.body.title;
     const description = req.body.description;
-    const work = new Work(null, order, company, date, title, description);
-    work.save();
-    res.redirect('/admin/work');
+    const work = new Work(order, company, date, title, description, null);
+    work.save()
+    .then(() => {
+        res.redirect('/admin/work');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.getEditWork = (req, res, next) => {
@@ -159,49 +176,56 @@ exports.getEditWork = (req, res, next) => {
         res.redirect('/');
     }
     const workId = req.params.workId;
-    Work.findById(workId, work => {
-        if (!work) {
-            return res.redirect('/');
-        }
+    Work.findById(workId)
+        .then(work => {
         res.render('admin/public/add-work', {
             pageTitle: 'Edit Work',
             path: '/admin/edit-work',
             editing: editMode,
             wrk: work
         });
-    });
+    })
+    .catch(err => console.log(err));
 };
 
 exports.postEditWork = (req, res, next) => {
-    const id = req.body.workId;
+    const wrkId = req.body.workId;
     const order = req.body.order;
     const company = req.body.company;
     const date = req.body.date;
     const title = req.body.title;
     const description = req.body.description;
     const updatedWork = new Work(
-        id,
         order,
         company,
         date,
         title,
-        description
+        description,
+        wrkId
     );
-    updatedWork.save();
-    res.redirect('/admin/work');
+    updatedWork.save()
+    .then(() => {
+        res.redirect('/admin/work');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.postDeleteWork = (req, res, next) => {
     const workId = req.body.workId;
-    Work.deleteById(workId);
-    res.redirect('/admin/work');
+    Work.deleteById(workId)
+    .then(() => {
+        res.redirect('/admin/work');
+    })
+    .catch(err => console.log(err));
 };
 
 
 
 // Skills Controllers 
 exports.getEditSkills = (req, res, next) => {
-    Skills.fetchAll(skills => {
+    Skills.fetchAll().then(skills => {
         res.render('admin/public/skills', {
             pageTitle: 'Edit Skills',
             path: '/admin/skills',
@@ -219,15 +243,20 @@ exports.postEditSkills = (req, res, next) => {
         skillNames,
         skillPercents
     );
-    updatedSkills.save();
-    res.redirect('/');
+    updatedSkills.save()
+    .then(() => {
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 
 
 // Projects Controllers
 exports.getProjects = (req, res, next) => {
-    Projects.fetchAll(projects => {
+    Projects.fetchAll().then(projects => {
         res.render('admin/public/projects', {
             pageTitle: 'Projects',
             path: '/admin/projects',
@@ -249,9 +278,14 @@ exports.postAddProject = (req, res, next) => {
     const title = req.body.title;
     const image = req.body.image;
     const description = req.body.description;
-    const project = new Projects(null, order, title, image, description);
-    project.save();
-    res.redirect('/admin/projects');
+    const project = new Projects(order, title, image, description, null);
+    project.save()
+    .then(() => {
+        res.redirect('/admin/projects');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.getEditProject = (req, res, next) => {
@@ -260,40 +294,48 @@ exports.getEditProject = (req, res, next) => {
         res.redirect('/');
     }
     const projId = req.params.projectId;
-    Projects.findById(projId, project => {
-        if (!project) {
-            return res.redirect('/');
-        }
+    Projects.findById(projId).then(project => {
         res.render('admin/public/add-project', {
             pageTitle: 'Edit Project',
             path: '/admin/edit-project',
             editing: editMode,
             project: project
         });
-    });
+    })
+    .catch(err => console.log(err));
 };
 
 exports.postEditProject = (req, res, next) => {
-    const id = req.body.projectId;
+    const projId = req.body.projectId;
     const order = req.body.order;
     const title = req.body.title;
     const image = req.body.image;
     const description = req.body.description;
     const updatedProject = new Projects(
-        id,
         order,
         title,
         image,
-        description
+        description,
+        projId
     );
-    updatedProject.save();
-    res.redirect('/admin/projects');
+    updatedProject.save()
+    .then(() => {
+        res.redirect('/admin/projects');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.postDeleteProject = (req, res, next) => {
     const projId = req.body.projectId;
-    Projects.deleteById(projId);
-    res.redirect('/admin/projects');
+    Projects.deleteById(projId)
+    .then(() => {
+        res.redirect('/admin/projects');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 
@@ -301,6 +343,7 @@ exports.postDeleteProject = (req, res, next) => {
 // Contact Controllers
 exports.getEditContact = (req, res, next) => {
     Contact.fetchAll().then(contact => {
+        console.log(contact);
         res.render('admin/public/contact', {
             pageTitle: 'Edit Contacts',
             path: '/admin/contact',

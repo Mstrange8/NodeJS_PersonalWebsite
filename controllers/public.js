@@ -7,11 +7,11 @@ const Contact = require('../models/contact');
 
 exports.getCareerPage = (req, res, next) => {
     Contents.fetchAll().then(contents => {
-        Education.fetchAll(eds => {
+        Education.fetchAll().then(eds => {
             Work.fetchAll(wrks => {
                 Skills.fetchAll(skills => {
                     Projects.fetchAll(projects => {
-                        Contact.fetchAll(contacts => {
+                        Contact.fetchAll().then(contacts => {
                             res.render('public/career', {
                                 pageTitle: 'Career',
                                 path: '/career',
@@ -21,7 +21,7 @@ exports.getCareerPage = (req, res, next) => {
                                 skillNames: skills.skillNames.split(" "),
                                 skillPercents: skills.skillPercents.split(" "),
                                 projects: projects,
-                                contacts: contacts
+                                contacts: contacts[0]
                             });
                         });
                     });

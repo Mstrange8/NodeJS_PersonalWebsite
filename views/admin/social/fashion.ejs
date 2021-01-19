@@ -9,8 +9,8 @@
 <body>
     <form class="product-form" action="/admin/fashion" method="POST">
         <div class="form-control">
-            <label for="images">Fashion Images</label>
-            <textarea type="" name="images" id="images" value="<%= fashion.images %>"></textarea>                
+            <label for="images">12 Fashion Images Separated by Enter</label>
+            <textarea type="" name="images" id="images"><%= fashion.images %></textarea>                
         </div>
         <div class="button-control">
             <button class="btn" type="submit">Update Fashion Section</button>

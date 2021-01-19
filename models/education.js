@@ -1,77 +1,74 @@
-const fs = require('fs');
-const path = require('path');
-const { exit } = require('process');
+const getDb = require('../util/database').getDb;
+const mongo = require('mongodb');
 
-const p = path.join(
-    path.dirname(require.main.filename),
-    'data',
-    'education.json'
-);
-
-
-const getEducationFromFile = (callback) => {
-    fs.readFile(p, (err, fileContent) => {
-        if (err) {
-            callback([]);
-        } else {
-            callback(JSON.parse(fileContent));
-        }
-    });
-}
-
-module.exports = class Education {
-    constructor(id, order, school, date, degree, description) {
-        this.id = id;
+class Education {
+    constructor(order, school, date, degree, description, id) {
         this.order = order;
         this.school = school;
         this.date = date;
         this.degree = degree;
         this.description = description;
+        this._id = id ? new mongo.ObjectId(id) : null;
     }
 
     save() {
-        getEducationFromFile(education => {
-            if (this.id) {
-                const existingEducationIndex = education.findIndex(ed => ed.id === this.id);
-                const updatedEducation = [...education];
-                updatedEducation[existingEducationIndex] = this;
-                fs.writeFile(p, JSON.stringify(updatedEducation.sort(function(first, second) {
-                    return first.order - second.order
-                })), err => {
-                    console.log(err);
-                });
-            } else {
-                this.id = Math.random().toString();
-                education.push(this);
-                fs.writeFile(p, JSON.stringify(education.sort(function(first, second) {
-                    return first.order - second.order
-                })), err => {
-                    console.log(err);
-                });
-            } 
+        const db = getDb();
+        let dbOp;
+        if (this._id) {
+            dbOp = db.collection('education').updateOne({ _id: this._id }, {$set: this});
+        } else {
+            dbOp = db.collection('education').insertOne(this);
+        }
+        return dbOp
+        .then(result => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
-    static deleteById(id) {
-        getEducationFromFile(educations => {
-            const updatedEducation = educations.filter(edu => edu.id !== id);
-            fs.writeFile(p, JSON.stringify(updatedEducation.sort(function(first, second) {
-                return first.order - second.order
-            })), err => {
-                console.log(err);
-            });
+    static fetchAll() {
+        const db = getDb();
+        return db
+        .collection('education')
+        .find()
+        .toArray()
+        .then(edu => {
+            return edu;
+        })
+        .catch(err=> {
+            console.log(err);
         });
     }
 
-    static fetchAll(callback) {
-        getEducationFromFile(callback);
-    }
-
-    static findById(id, callback) {
-        getEducationFromFile(educations => {
-            const education = educations.find(p => p.id === id);
-            callback(education);
+    static findById(eduId) {
+        const db = getDb();
+        return db
+        .collection('education')
+        .find({ _id: new mongo.ObjectID(eduId) })
+        .next()
+        .then(edu => {
+            console.log(edu);
+            return edu;
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
-};
+    static deleteById(eduId) {
+        const db = getDb();
+        return db
+        .collection('education')
+        .deleteOne({_id: new mongo.ObjectId(eduId)})
+        .then(result => {
+            console.log('deleted')
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+}
+
+module.exports = Education;

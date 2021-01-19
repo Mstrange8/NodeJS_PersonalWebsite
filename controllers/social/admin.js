@@ -41,7 +41,7 @@ exports.postEditAbout = (req, res, next) => {
 exports.getBooks = (req, res, next) => {
     Books.fetchAll().then(books => {
         res.render('admin/social/books', {
-            pageTitle: '/Admin Books',
+            pageTitle: 'Admin Books',
             path: '/admin/books',
             books: books
         });
