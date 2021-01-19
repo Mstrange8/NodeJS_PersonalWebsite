@@ -1,39 +1,38 @@
-const fs = require('fs');
-const path = require('path');
-const { exit } = require('process');
+const getDb = require('../util/database').getDb;
 
-const p = path.join(
-    path.dirname(require.main.filename),
-    'data',
-    'skills.json'
-);
-
-const getSkillsFromFile = (callback) => {
-    fs.readFile(p, (err, fileContent) => {
-        if (err) {
-            callback([]);
-        } else {
-            callback(JSON.parse(fileContent));
-        }
-    });
-}
-
-module.exports = class Skills {
+class Skills {
     constructor(skillNames, skillPercents) {
         this.skillNames = skillNames;
         this.skillPercents = skillPercents;
     }
 
     save() {
-        getSkillsFromFile(Skills => {
-            Skills = this;
-            fs.writeFile(p, JSON.stringify(Skills), err => {
-                console.log(err);
-            });
+        const db = getDb();
+        return db.collection('skills')
+        .updateOne({}, {$set: this})
+        .then(result => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
-    static fetchAll(callback) {
-        getSkillsFromFile(callback);
+    static fetchAll() {
+        const db = getDb();
+        return db
+        .collection('skills')
+        .find()
+        .toArray()
+        .then(contents => {
+            return contents;
+        })
+        .catch(err=> {
+            console.log(err);
+        });
     }
 }
+
+module.exports = Skills;
+
+

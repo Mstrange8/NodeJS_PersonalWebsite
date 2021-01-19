@@ -7,9 +7,9 @@ const Contact = require('../models/contact-social');
 exports.getSocialPage = (req, res, next) => {
     Contents.fetchAll().then(contents => {
         Books.fetchAll().then(books => {
-            Hobbies.fetchAll(hobbies => {
-                Fashion.fetchAll(fashion => {
-                    Contact.fetchAll(contacts => {
+            Hobbies.fetchAll().then(hobbies => {
+                Fashion.fetchAll().then(fashion => {
+                    Contact.fetchAll().then(contacts => {
                         res.render('social/social', {
                             pageTitle: 'Social',
                             path: '/social',
@@ -18,7 +18,7 @@ exports.getSocialPage = (req, res, next) => {
                             hobbieNames: hobbies.hobbieNames.split(" "),
                             hobbiePercents: hobbies.hobbiePercents.split(" "),
                             images: fashion.images.replace(/[\n\r]/g, " ").split("  "),
-                            contacts: contacts
+                            contacts: contacts[0]
                         });
                     });
                 });

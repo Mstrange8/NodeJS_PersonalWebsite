@@ -27,7 +27,7 @@ exports.postEditAbout = (req, res, next) => {
         content2
     );
     updatedContents.save()
-    .then(result => {
+    .then(() => {
         res.redirect('/social');
     })
     .catch(err => {
@@ -116,15 +116,14 @@ exports.postDeleteBook = (req, res, next) => {
 
 // Hobbies Controllers 
 exports.getEditHobbies = (req, res, next) => {
-    Hobbies.fetchAll(hobbies => {
+    Hobbies.fetchAll().then(hobbies => {
         res.render('admin/social/hobbies', {
             pageTitle: 'Edit Hobbies',
             path: '/admin/hobbies',
             hobbieNames: hobbies.hobbieNames,
             hobbiePercents: hobbies.hobbiePercents
         });
-    });
-    
+    }); 
 };
 
 exports.postEditHobbies = (req, res, next) => {
@@ -134,15 +133,20 @@ exports.postEditHobbies = (req, res, next) => {
         hobbieNames,
         hobbiePercents
     );
-    updatedHobbies.save();
-    res.redirect('/');
+    updatedHobbies.save()
+    .then(() => {
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 
 
 // Fashion Controllers
 exports.getEditFashion = (req, res, next) => {
-    Fashion.fetchAll(fashion => {
+    Fashion.fetchAll().then(fashion => {
         res.render('admin/social/fashion', {
             pageTitle: 'Edit Fashion',
             path: '/admin/fashion',
@@ -156,8 +160,13 @@ exports.postEditFashion = (req, res, next) => {
     const updatedFashion = new Fashion (
         images
     );
-    updatedFashion.save();
-    res.redirect('/social');
+    updatedFashion.save()
+    .then(() => {
+        res.redirect('/social');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 

@@ -233,7 +233,6 @@ exports.getEditSkills = (req, res, next) => {
             skillPercents: skills.skillPercents
         });
     });
-    
 };
 
 exports.postEditSkills = (req, res, next) => {

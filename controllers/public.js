@@ -8,9 +8,9 @@ const Contact = require('../models/contact');
 exports.getCareerPage = (req, res, next) => {
     Contents.fetchAll().then(contents => {
         Education.fetchAll().then(eds => {
-            Work.fetchAll(wrks => {
-                Skills.fetchAll(skills => {
-                    Projects.fetchAll(projects => {
+            Work.fetchAll().then(wrks => {
+                Skills.fetchAll().then(skills => {
+                    Projects.fetchAll().then(projects => {
                         Contact.fetchAll().then(contacts => {
                             res.render('public/career', {
                                 pageTitle: 'Career',
