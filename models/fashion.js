@@ -32,3 +32,5 @@ class Fashion {
         });
     }
 }
+
+module.exports = Fashion;

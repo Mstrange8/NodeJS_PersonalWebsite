@@ -15,9 +15,9 @@ exports.getSocialPage = (req, res, next) => {
                             path: '/social',
                             imgs: contents[0],
                             books: books,
-                            hobbieNames: hobbies.hobbieNames.split(" "),
-                            hobbiePercents: hobbies.hobbiePercents.split(" "),
-                            images: fashion.images.replace(/[\n\r]/g, " ").split("  "),
+                            hobbieNames: hobbies[0].hobbieNames.split(" "),
+                            hobbiePercents: hobbies[0].hobbiePercents.split(" "),
+                            images: fashion[0].images.replace(/[\n\r]/g, " ").split("  "),
                             contacts: contacts[0]
                         });
                     });

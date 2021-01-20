@@ -18,8 +18,8 @@ exports.getCareerPage = (req, res, next) => {
                                 imgs: contents[0],
                                 eds: eds,
                                 wrks: wrks,
-                                skillNames: skills.skillNames.split(" "),
-                                skillPercents: skills.skillPercents.split(" "),
+                                skillNames: skills[0].skillNames.split(" "),
+                                skillPercents: skills[0].skillPercents.split(" "),
                                 projects: projects,
                                 contacts: contacts[0]
                             });

@@ -120,8 +120,8 @@ exports.getEditHobbies = (req, res, next) => {
         res.render('admin/social/hobbies', {
             pageTitle: 'Edit Hobbies',
             path: '/admin/hobbies',
-            hobbieNames: hobbies.hobbieNames,
-            hobbiePercents: hobbies.hobbiePercents
+            hobbieNames: hobbies[0].hobbieNames,
+            hobbiePercents: hobbies[0].hobbiePercents
         });
     }); 
 };
@@ -150,7 +150,7 @@ exports.getEditFashion = (req, res, next) => {
         res.render('admin/social/fashion', {
             pageTitle: 'Edit Fashion',
             path: '/admin/fashion',
-            fashion: fashion
+            fashion: fashion[0]
         });
     });
 };

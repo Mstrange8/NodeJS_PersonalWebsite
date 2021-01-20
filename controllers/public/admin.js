@@ -229,8 +229,8 @@ exports.getEditSkills = (req, res, next) => {
         res.render('admin/public/skills', {
             pageTitle: 'Edit Skills',
             path: '/admin/skills',
-            skillNames: skills.skillNames,
-            skillPercents: skills.skillPercents
+            skillNames: skills[0].skillNames,
+            skillPercents: skills[0].skillPercents
         });
     });
 };
