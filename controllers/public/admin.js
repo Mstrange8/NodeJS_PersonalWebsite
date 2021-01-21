@@ -53,7 +53,9 @@ exports.getEducation = (req, res, next) => {
         res.render('admin/public/education', {
             pageTitle: 'Admin Education',
             path: '/admin/education',
-            eds: education
+            eds: education.sort(function(first, second) {
+                return first.order - second.order
+            })
         });
     });
 };
@@ -141,7 +143,9 @@ exports.getWork = (req, res, next) => {
         res.render('admin/public/work', {
             pageTitle: 'Admin Work',
             path: '/admin/work',
-            wrks: work
+            wrks: work.sort(function(first, second) {
+                return first.order - second.order
+            })
         });
     });
 };
@@ -259,7 +263,9 @@ exports.getProjects = (req, res, next) => {
         res.render('admin/public/projects', {
             pageTitle: 'Projects',
             path: '/admin/projects',
-            projects: projects
+            projects: projects.sort(function(first, second) {
+                return first.order - second.order
+            })
         });
     });
 };

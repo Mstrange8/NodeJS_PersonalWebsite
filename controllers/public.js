@@ -16,11 +16,17 @@ exports.getCareerPage = (req, res, next) => {
                                 pageTitle: 'Career',
                                 path: '/career',
                                 imgs: contents[0],
-                                eds: eds,
-                                wrks: wrks,
+                                eds: eds.sort(function(first, second) {
+                                    return first.order - second.order
+                                }),
+                                wrks: wrks.sort(function(first, second) {
+                                    return first.order - second.order
+                                }),
                                 skillNames: skills[0].skillNames.split(" "),
                                 skillPercents: skills[0].skillPercents.split(" "),
-                                projects: projects,
+                                projects: projects.sort(function(first, second) {
+                                    return first.order - second.order
+                                }),
                                 contacts: contacts[0]
                             });
                         });

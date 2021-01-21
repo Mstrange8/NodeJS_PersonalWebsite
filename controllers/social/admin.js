@@ -43,7 +43,9 @@ exports.getBooks = (req, res, next) => {
         res.render('admin/social/books', {
             pageTitle: 'Admin Books',
             path: '/admin/books',
-            books: books
+            books: books.sort(function(first, second) {
+                return first.order - second.order
+            })
         });
     });
 };

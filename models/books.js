@@ -3,7 +3,7 @@ const mongo = require('mongodb');
 
 class Books {
     constructor(order, title, author, description, id) {
-        this.order = order;
+        this.order = parseInt(order);
         this.title = title;
         this.author = author;
         this.description = description;
@@ -20,7 +20,7 @@ class Books {
         }
         return dbOp
         .then(result => {
-            console.log(result);
+            console.log('connection');
         })
         .catch(err => {
             console.log(err);
